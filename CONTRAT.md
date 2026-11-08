@@ -9,6 +9,7 @@ pages sont faits séparément : une page de contenu n'utilise que les éléments
 |---|---|
 | `build.py` | Assemble `src/pages/**/*.html` dans `_site/` (sans dépendance : Python 3 seul) |
 | `captures.py` | Refait les captures d'écran de l'app (`assets/img/app/`) depuis le simulateur iOS : voir « Captures d'écran de l'app » |
+| `captures/visages/` | Photos d'illustration des profils de démonstration, servies au test pendant les captures, jamais publiées telles quelles (`SOURCES.md`) |
 | `src/layout.html` | Squelette commun : `<head>`, en-tête, pied de page |
 | `src/pages/` | Une page par fichier, avec son en-tête (voir plus bas) |
 | `assets/` | `css/linga.css`, `js/linga.js`, `fonts/`, `img/` (`logo/`, `icons.svg`, `app/` : les captures d'écran) : copiés dans `_site/assets/` |
@@ -183,12 +184,15 @@ bouts ronds). Noms disponibles :
 Français, tutoiement, sans emoji, phrases courtes. Écrire normalement l'espace avant « : ; ? ! » : `build.py` la rend
 insécable (y compris dans `<strong>Important </strong>:`), et empêche « e-mail » et « Écris-nous » de se couper au trait d'union. Un chemin court (26 signes au plus,
 « Profil › Vérification ») ne se coupe jamais. Pas de
-photo de personne : des initiales à la place (les captures de l'app aussi : les profils de démonstration n'ont pas
-de photo).
+photo de personne sur le site, sauf dans les captures de l'app : les visages des profils de démonstration y sont
+des photos d'illustration (`captures/visages/`, voir `SOURCES.md`), et le pied de page dit que ces personnes ne
+sont pas des membres de Linga.
 
 ## Captures d'écran de l'app
 
-De vraies captures du simulateur iOS, jamais des écrans redessinés. Le test d'intégration de l'app
+De vraies captures du simulateur iOS, jamais des écrans redessinés. Les profils de démonstration n'ont pas de photo
+dans l'app : pendant les captures, `captures.py` sert au test les photos de `captures/visages/`, que l'app affiche à
+la place des initiales (`lingaStandInPhoto`, réglé par le test seulement). Le test d'intégration de l'app
 (`../app/integration_test/captures_site_test.dart`) lance l'app en démonstration (données des maquettes, heure figée
 à 9 h 41), va d'écran en écran et demande une capture à `captures.py` à chaque écran à garder ; la barre d'état est
 figée pendant ce temps (« 09:41 » sur un simulateur en français, réseau et batterie pleins).

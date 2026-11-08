@@ -1400,7 +1400,8 @@ mark.todo {
 }
 
 .capture {
-  width: min(260px, 100%);
+  flex: 1 1 220px;
+  max-width: 260px;
   margin: 0;
 }
 
@@ -2348,6 +2349,13 @@ mark.todo {
     --w: 280px;
   }
 
+  /* jusqu'à 1199 px, la colonne est étroite : téléphone à gauche, libellés de progression à droite, sans chevauchement */
+  @media (max-width: 1199px) {
+    .how__sticky {
+      justify-content: flex-start;
+    }
+  }
+
   .how__stage .phone__shot {
     opacity: 0;
     transform: translateY(12px) scale(0.985);
@@ -2633,7 +2641,7 @@ mark.todo {
 
   .cta-panel__phone .phone {
     position: absolute;
-    top: 72px;
+    top: 60px;
   }
 }
 
@@ -2762,6 +2770,10 @@ mark.todo {
   color: var(--text-muted);
   font-size: 0.875rem;
   position: relative;
+}
+
+.site-footer__note {
+  flex-basis: 100%;
 }
 
 /* Sur téléphone, la colonne « Légal » reste seule sur sa ligne : elle prend toute la largeur (libellés sans coupure). */

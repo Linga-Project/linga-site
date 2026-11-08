@@ -13,6 +13,10 @@ Usage :
     python3 captures.py --simulateur <UDID> --png ~/Desktop/captures-linga
         garde aussi les PNG d'origine (1320 × 2868 sur un iPhone Pro Max), utiles pour les fiches des stores
 
+Les profils de démonstration n'ont pas de photo dans l'app : pendant les captures, ce script sert au test les
+photos d'illustration de captures/visages/ (celles des maquettes, voir captures/visages/SOURCES.md), et les écrans
+montrent des visages au lieu des initiales.
+
 Seuls les écrans que les pages utilisent (src/pages/**, chemins /assets/img/app/<nom>-…) deviennent des images ;
 les autres images de assets/img/app/ sont retirées. Le site attend des captures d'iPhone Pro Max (1320 × 2868) :
 le cadre du téléphone en a les proportions.
@@ -40,6 +44,7 @@ from urllib.parse import parse_qs, urlparse
 ROOT = Path(__file__).resolve().parent
 PAGES = ROOT / "src" / "pages"
 OUT = ROOT / "assets" / "img" / "app"
+FACES = ROOT / "captures" / "visages"  # photos d'illustration des profils, servies au test (jamais publiées telles quelles)
 TEST = "integration_test/captures_site_test.dart"
 
 WIDTHS = (300, 600, 900)  # 1x, 2x et 3x d'un écran affiché sur environ 300 px de large
@@ -47,6 +52,7 @@ SIZE = (1320, 2868)  # iPhone Pro Max, en pixels
 QUALITY = "84"
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+FACE_RE = re.compile(r"^/visages/([a-z0-9-]+\.jpg)$")
 USED_RE = re.compile(r"/assets/img/app/([a-z0-9]+(?:-[a-z0-9]+)*)-(\d+)\.webp")
 
 STATUS_BAR = [
@@ -104,20 +110,42 @@ def capture_server(udid: str, folder: Path, taken: list):
 
         def do_GET(self):
             url = urlparse(self.path)
+            face = FACE_RE.match(url.path)
+            if face:
+                # Photo d'un profil de démonstration, demandée par l'app (Image.network) pendant les captures.
+                file = FACES / face.group(1)
+                if not file.is_file():
+                    self.fail(404, face.group(1), f"photo introuvable dans {FACES.relative_to(ROOT)}/")
+                    return
+                body = file.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+                return
             name = parse_qs(url.query).get("nom", [""])[0]
             if url.path != "/capture" or not NAME_RE.match(name):
                 self.fail(400, name, "attendu : /capture?nom=nom-de-l-ecran (minuscules, chiffres, tirets)")
                 return
             target = folder / f"{name}.png"
             try:
-                shot = run(["xcrun", "simctl", "io", udid, "screenshot", "--type=png", str(target)],
-                           capture_output=True, timeout=60)
+                # --mask=alpha : coins arrondis transparents, comme l'écran (sans le point noir que le simulateur
+                # laisse dans le coin en haut à gauche). 45 s, moins que le délai du test (60 s).
+                shot = run(["xcrun", "simctl", "io", udid, "screenshot", "--type=png", "--mask=alpha", str(target)],
+                           capture_output=True, timeout=45)
             except subprocess.TimeoutExpired:
-                self.fail(500, name, "xcrun simctl io screenshot : pas de réponse en 60 s")
+                self.fail(500, name, "xcrun simctl io screenshot : pas de réponse en 45 s")
                 return
             if shot.returncode != 0 or not target.is_file():
                 lines = (shot.stderr or "").strip().splitlines() or ["capture impossible"]
                 self.fail(500, name, f"xcrun simctl io screenshot : {lines[-1][:300]}")
+                return
+            size = pixel_size(target)
+            if size != SIZE:
+                # Dès la première capture : inutile de parcourir toute l'app sur le mauvais simulateur.
+                self.fail(500, name, f"{size[0]} × {size[1]} au lieu de {SIZE[0]} × {SIZE[1]} : le site attend des "
+                                     "captures d'iPhone Pro Max (voir SIZE dans captures.py)")
                 return
             taken.append(name)
             print(f"  capture  {name}", flush=True)
@@ -222,7 +250,8 @@ def main(argv=None) -> int:
                 shutil.copy2(png, keep / png.name)
         if test.returncode != 0:
             kept = "" if args.png else f" ; captures faites : {shots}"
-            work = None  # gardé pour voir où le test s'est arrêté
+            if not args.png:
+                work = None  # seule copie des captures faites : gardée pour voir où le test s'est arrêté
             raise Failure(f"le test d'intégration a échoué ({len(taken)} capture(s) faite(s) : "
                           f"{', '.join(taken) or 'aucune'}){kept}")
 

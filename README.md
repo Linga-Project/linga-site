@@ -25,7 +25,8 @@ https://linga.chat, servi par Cloudflare.
 
 Les téléphones de l'accueil et les images des articles d'aide sont de vraies captures de l'app, prises dans le
 simulateur iOS par `captures.py` : le test d'intégration `integration_test/captures_site_test.dart` de l'app
-(dépôt voisin, `../app`) l'ouvre en démonstration et va d'écran en écran. Pour les refaire, après un changement
+(dépôt voisin, `../app`) l'ouvre en démonstration et va d'écran en écran. Les profils y ont les visages de
+`captures/visages/` (photos d'illustration, voir [SOURCES.md](captures/visages/SOURCES.md)). Pour les refaire, après un changement
 d'écran dans l'app (macOS, Xcode, Flutter et `cwebp` : `brew install webp`) :
 
 ```sh
