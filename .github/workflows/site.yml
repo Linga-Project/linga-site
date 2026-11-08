@@ -1,0 +1,31 @@
+# Construit le site (python3 build.py, sans dépendance) à chaque push et pull request : la construction échoue sur
+# un lien interne cassé, une ancre absente, une icône inconnue, une image incomplète ou un en-tête de page incomplet.
+# La publication est faite par Cloudflare (Workers, wrangler.jsonc), qui construit lui-même le site à chaque push sur
+# main : ce workflow ne publie rien.
+name: Site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Construction
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Construction du site
+        run: python3 build.py

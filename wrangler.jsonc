@@ -1,0 +1,17 @@
+// Publication sur Cloudflare (Workers, fichiers statiques seulement, sans script) : « npx wrangler deploy » lance
+// d'abord build.py (build.command), puis envoie le dossier _site.
+// « name » doit être le nom du Worker dans le tableau de bord Cloudflare (Workers & Pages).
+{
+  "name": "linga-site",
+  "compatibility_date": "2026-11-01",
+  "build": {
+    "command": "python3 build.py"
+  },
+  "assets": {
+    "directory": "./_site",
+    // /cgu sert /cgu/index.html (en redirigeant vers /cgu/)
+    "html_handling": "auto-trailing-slash",
+    // une adresse inconnue reçoit _site/404.html, avec le statut 404
+    "not_found_handling": "404-page"
+  }
+}
