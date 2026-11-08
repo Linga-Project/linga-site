@@ -192,6 +192,15 @@ def eyebrow(text: str) -> str:
     return f'<span class="eyebrow">{text}</span>' if text else ""
 
 
+# Le fil de Linga : le monogramme du logo (l et i reliés par le bas, point coquelicot), tracé d'un seul trait.
+# Décoratif ; linga.js n'y touche pas, la CSS le dessine (stroke-dashoffset) puis fait tomber le point.
+FIL_SVG = (
+    '<svg class="fil fil--head" viewBox="-14 -168 102 200" aria-hidden="true" focusable="false">'
+    '<path class="fil__trait" d="M14 -148 V-34 A23 23 0 0 0 60 -34 V-100" pathLength="1"></path>'
+    '<circle class="fil__point" cx="60" cy="-134" r="16"></circle></svg>'
+)
+
+
 def title_html(page: Page) -> str:
     return page.meta.get("title_html") or esc(page.meta["title"])
 
@@ -231,7 +240,7 @@ def render_legal_or_help(page: Page) -> str:
     items = headings(page)
     aside, mobile = toc_html(items)
     is_help = page.layout == "help"
-    hero = ['<section class="doc-hero"><div class="container">']
+    hero = [f'<section class="doc-hero theme-noir">{FIL_SVG}<div class="container">']
     if is_help:
         hero.append(
             '<nav class="breadcrumb" aria-label="Fil d\'Ariane"><ol>'
@@ -269,7 +278,7 @@ def render_legal_or_help(page: Page) -> str:
         f'<div class="container {grid}">{aside}<div class="doc__main">{mobile}'
         f'<article class="doc__card prose">{draft_banner(page)}{enhance_tables(page)}</article>{help_box}</div></div>'
     )
-    return "".join(hero) + f'<div class="doc-wrap">{body}</div>'
+    return "".join(hero) + f'<div class="doc-wrap theme-papier">{body}</div>'
 
 
 TABLE_WRAP_RE = re.compile(r'<div class="table-wrap">(\s*<table\b.*?</table>\s*)</div>', re.S | re.I)
@@ -348,7 +357,7 @@ def segment_paths(document: str) -> str:
 
 def render_page(page: Page) -> str:
     m = page.meta
-    parts = ['<section class="page-hero"><div class="page-hero__glow" aria-hidden="true"></div><div class="container">']
+    parts = [f'<section class="page-hero theme-noir">{FIL_SVG}<div class="container">']
     parts.append(eyebrow(m.get("eyebrow", "")))
     parts.append(f'<h1 class="display display--page">{title_html(page)}</h1>')
     if m.get("lead"):

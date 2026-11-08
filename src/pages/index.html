@@ -3,76 +3,88 @@ title: Des rencontres qui se tiennent
 description: Linga, l'app de rencontre où l'on avance main dans la main : profils vérifiés, conversations sincères, ta sécurité d'abord. Bientôt sur iPhone et Android.
 layout: landing
 -->
-<section class="hero" aria-labelledby="titre-accueil">
-  <div class="dots" aria-hidden="true"></div>
-  <div class="container hero__inner">
-    <span class="eyebrow">Bientôt sur iPhone et Android</span>
-    <h1 class="hero__title gradient-text" id="titre-accueil">Des rencontres qui se tiennent.</h1>
-    <p class="lead">Linga vient de <em lang="ln">kolinga</em>, « aimer » en lingala. Des profils vérifiés, des conversations sincères, et ta sécurité d'abord.</p>
-    <div class="stores">
-      <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>l'App Store</span></span>
-      <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>Google Play</span></span>
+<section class="hero theme-noir" aria-labelledby="titre-accueil">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <p class="hero__soon">Bientôt sur iPhone et Android</p>
+      <h1 class="hero__title" id="titre-accueil" data-words>Des rencontres qui <span class="hero__link">se tiennent.</span></h1>
+      <dl class="definition">
+        <dt><span class="definition__word" lang="ln">kolinga</span> <span class="definition__meta">lingala, verbe</span></dt>
+        <dd>Aimer. Linga vient de là : des profils vérifiés, des conversations sincères, et ta sécurité d'abord.</dd>
+      </dl>
+      <div class="stores">
+        <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>l'App Store</span></span>
+        <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>Google Play</span></span>
+      </div>
+      <p class="hero__help"><a class="text-link" href="/aide/">Une question ? Le centre d'<span class="nowrap">aide <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#arrow-right"></use></svg></span></a></p>
     </div>
-    <p class="hero__help"><a class="text-link" href="/aide/">Une question ? Le centre d'<span class="nowrap">aide <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#arrow-right"></use></svg></span></a></p>
-  </div>
 
-  <div class="hero__stage" aria-hidden="true">
-    <div class="glow"></div>
-    <div class="float float--match">
-      <span class="card__icon"><svg class="icon"><use href="/assets/img/icons.svg#heart"></use></svg></span>
-      <span>C'est un match !<small>Quelqu'un que tu as liké t'a liké aussi.</small></span>
-    </div>
-    <div class="float float--date">
-      <span class="card__icon"><svg class="icon"><use href="/assets/img/icons.svg#calendar"></use></svg></span>
-      <span>Maya<small>Nouvelle proposition de rendez-vous</small></span>
-    </div>
-    <div class="phone">
-      <div class="phone__screen">
-        <img class="phone__shot" src="/assets/img/app/decouvrir-600.webp" srcset="/assets/img/app/decouvrir-300.webp 300w, /assets/img/app/decouvrir-600.webp 600w, /assets/img/app/decouvrir-900.webp 900w" sizes="290px" width="600" height="1304" alt="" fetchpriority="high" decoding="async">
-        <span class="phone__island"></span>
-        <span class="phone__home"></span>
+    <div class="hero__stage" aria-hidden="true">
+      <svg class="fil fil--tenir" viewBox="0 0 500 800"><path class="fil__trait" d="M40 50 V560 A210 210 0 0 0 460 560 V210" pathLength="1"></path><circle class="fil__point" cx="460" cy="146" r="17"></circle></svg>
+      <div class="hero__phone" data-tilt>
+        <div class="phone phone--hero">
+          <div class="phone__screen">
+            <img class="phone__shot" src="/assets/img/app/decouvrir-600.webp" srcset="/assets/img/app/decouvrir-300.webp 300w, /assets/img/app/decouvrir-600.webp 600w, /assets/img/app/decouvrir-900.webp 900w" sizes="290px" width="600" height="1304" alt="" fetchpriority="high" decoding="async">
+            <span class="tap"></span>
+            <div class="push" data-push>
+              <img class="push__icon" src="/assets/img/logo/linga-monogramme-negatif.svg" alt="" width="88" height="165">
+              <p class="push__text"><span class="push__title">C'est un match !</span><span class="push__body">Quelqu'un que tu as liké t'a liké aussi.</span></p>
+              <span class="push__time">maintenant</span>
+            </div>
+            <div class="push" data-push>
+              <img class="push__icon" src="/assets/img/logo/linga-monogramme-negatif.svg" alt="" width="88" height="165">
+              <p class="push__text"><span class="push__title">Maya</span><span class="push__body">Nouvelle proposition de rendez-vous</span></p>
+              <span class="push__time">maintenant</span>
+            </div>
+            <span class="phone__island"></span>
+            <span class="phone__home"></span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section pledge" id="engagements" aria-labelledby="titre-engagements">
-  <div class="container">
-    <span class="eyebrow">Nos engagements</span>
-    <h2 id="titre-engagements"><span class="pledge__big gradient-text">0 pub</span></h2>
-    <p class="lead">Aucune publicité dans l'app, et tes données ne sont jamais revendues. Linga est fait pour que tu rencontres quelqu'un, pas pour te garder devant l'écran.</p>
-    <div class="stats">
-      <div>
-        <p class="stats__value">30&nbsp;jours</p>
-        <p class="stats__label">Une conversation fermée est effacée 30&nbsp;jours après sa fermeture.</p>
-      </div>
-      <div>
-        <p class="stats__value">1&nbsp;km</p>
-        <p class="stats__label">Les autres voient une distance arrondie au kilomètre. Jamais ta position.</p>
-      </div>
-      <div>
-        <p class="stats__value">18&nbsp;ans</p>
-        <p class="stats__label">L'âge minimum pour s'inscrire sur Linga.</p>
-      </div>
-    </div>
-    <p class="pledge__more"><a class="text-link" href="/confidentialite/">Notre politique de <span class="nowrap">confidentialité <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#arrow-right"></use></svg></span></a></p>
   </div>
 </section>
 
-<section class="section" id="comment" aria-labelledby="titre-comment">
+<section class="section manifesto theme-coquelicot" id="engagements" aria-labelledby="titre-engagements">
   <div class="container">
-    <div class="section__head">
-      <span class="eyebrow">Comment ça marche</span>
-      <h2 class="display" id="titre-comment">Du premier like <span class="muted">au premier <span class="nowrap">rendez-vous.</span></span></h2>
+    <h2 class="manifesto__title" id="titre-engagements" data-reveal>Linga est fait pour que tu rencontres quelqu'un. <span class="light">Pas pour te garder devant l'écran.</span></h2>
+    <ul class="facts">
+      <li class="fact" data-reveal>
+        <p class="fact__value"><span class="fact__number" data-count="0" data-from="99">0</span> pub</p>
+        <p class="fact__text">Aucune publicité dans l'app, et tes données ne sont jamais revendues.</p>
+      </li>
+      <li class="fact" data-reveal>
+        <p class="fact__value"><span class="fact__number" data-count="1" data-from="20">1</span>&nbsp;km</p>
+        <p class="fact__text">Les autres voient une distance arrondie au kilomètre. Jamais ta position.</p>
+      </li>
+      <li class="fact" data-reveal>
+        <p class="fact__value"><span class="fact__number" data-count="30">30</span>&nbsp;jours</p>
+        <p class="fact__text">Une conversation fermée est effacée 30&nbsp;jours après sa fermeture.</p>
+      </li>
+      <li class="fact" data-reveal>
+        <p class="fact__value"><span class="fact__number" data-count="18">18</span>&nbsp;ans</p>
+        <p class="fact__text">L'âge minimum pour s'inscrire sur Linga.</p>
+      </li>
+    </ul>
+    <p class="manifesto__more"><a class="text-link" href="/confidentialite/">Notre politique de <span class="nowrap">confidentialité <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#arrow-right"></use></svg></span></a></p>
+  </div>
+</section>
+
+<section class="section theme-papier" id="comment" aria-labelledby="titre-comment">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Comment ça marche</p>
+      <h2 class="display" id="titre-comment">Du premier like au premier <span class="nowrap">rendez-vous.</span></h2>
       <p class="lead">Pas de jeu sans fin : Linga est fait pour passer de l'écran à la vraie vie, en quatre étapes.</p>
     </div>
 
     <div class="how" data-how>
       <div class="how__steps">
+        <span class="how__spine" aria-hidden="true"><span class="how__spine-fill"></span></span>
         <article class="how__step" data-step>
           <div>
-            <p class="how__num"><span>01</span><b>Ton profil</b></p>
-            <h3 class="how__title">Montre-toi <span class="muted">comme tu es.</span></h3>
+            <p class="how__num"><span>01</span>Ton profil</p>
+            <h3 class="how__title">Montre-toi comme tu es.</h3>
             <p class="how__text">Jusqu'à six photos, quelques mots sur toi, tes centres d'intérêt et ce que tu cherches. Jusqu'à trois questions de profil, comme « Mon dimanche idéal », pour lancer la conversation.</p>
             <ul class="checklist">
               <li>Tes photos perdent leurs données cachées : position, téléphone, date</li>
@@ -81,7 +93,6 @@ layout: landing
             </ul>
           </div>
           <div class="how__phone" aria-hidden="true">
-            <div class="glow"></div>
             <div class="phone">
               <div class="phone__screen">
                 <img class="phone__shot" src="/assets/img/app/mon-profil-600.webp" srcset="/assets/img/app/mon-profil-300.webp 300w, /assets/img/app/mon-profil-600.webp 600w, /assets/img/app/mon-profil-900.webp 900w" sizes="250px" width="600" height="1304" alt="" loading="lazy" decoding="async">
@@ -94,8 +105,8 @@ layout: landing
 
         <article class="how__step" data-step>
           <div>
-            <p class="how__num"><span>02</span><b>Découvrir</b></p>
-            <h3 class="how__title">Des gens près de toi, <span class="muted">qui cherchent la même chose.</span></h3>
+            <p class="how__num"><span>02</span>Découvrir</p>
+            <h3 class="how__title">Des gens près de toi, qui cherchent la même chose.</h3>
             <p class="how__text">Linga te propose des profils selon tes critères et les leurs, dans les deux sens : âge, distance, et ce que chacun cherche. Un like de chaque côté, et c'est un match.</p>
             <ul class="checklist">
               <li>Tu choisis l'âge, la distance et qui tu veux rencontrer</li>
@@ -104,7 +115,6 @@ layout: landing
             </ul>
           </div>
           <div class="how__phone" aria-hidden="true">
-            <div class="glow"></div>
             <div class="phone">
               <div class="phone__screen">
                 <img class="phone__shot" src="/assets/img/app/filtres-600.webp" srcset="/assets/img/app/filtres-300.webp 300w, /assets/img/app/filtres-600.webp 600w, /assets/img/app/filtres-900.webp 900w" sizes="250px" width="600" height="1304" alt="" loading="lazy" decoding="async">
@@ -117,8 +127,8 @@ layout: landing
 
         <article class="how__step" data-step>
           <div>
-            <p class="how__num"><span>03</span><b>Discuter</b></p>
-            <h3 class="how__title">Écris, <span class="muted">ou <span class="nowrap">dis-le</span> de vive voix.</span></h3>
+            <p class="how__num"><span>03</span>Discuter</p>
+            <h3 class="how__title">Écris, ou <span class="nowrap">dis-le</span> de vive voix.</h3>
             <p class="how__text">Une fois le match fait, la conversation s'ouvre. Des messages, des vocaux de deux minutes au plus, à ton rythme.</p>
             <ul class="checklist">
               <li>Les confirmations de lecture sont désactivées, sauf si tu les actives</li>
@@ -127,7 +137,6 @@ layout: landing
             </ul>
           </div>
           <div class="how__phone" aria-hidden="true">
-            <div class="glow"></div>
             <div class="phone">
               <div class="phone__screen">
                 <img class="phone__shot" src="/assets/img/app/conversation-600.webp" srcset="/assets/img/app/conversation-300.webp 300w, /assets/img/app/conversation-600.webp 600w, /assets/img/app/conversation-900.webp 900w" sizes="250px" width="600" height="1304" alt="" loading="lazy" decoding="async">
@@ -140,8 +149,8 @@ layout: landing
 
         <article class="how__step" data-step>
           <div>
-            <p class="how__num"><span>04</span><b>Se retrouver</b></p>
-            <h3 class="how__title">Propose un <span class="nowrap">rendez-vous,</span> <span class="muted">en quelques touches.</span></h3>
+            <p class="how__num"><span>04</span>Se retrouver</p>
+            <h3 class="how__title">Propose un <span class="nowrap">rendez-vous,</span> en quelques touches.</h3>
             <p class="how__text">Un café, une balade, une expo, un verre ou un resto. Tu choisis le jour, le moment et, si tu veux, le lieu. L'autre personne accepte ou décline.</p>
             <ul class="checklist">
               <li>Midi, après-midi ou soirée, dans la semaine qui vient</li>
@@ -150,7 +159,6 @@ layout: landing
             </ul>
           </div>
           <div class="how__phone" aria-hidden="true">
-            <div class="glow"></div>
             <div class="phone">
               <div class="phone__screen">
                 <img class="phone__shot" src="/assets/img/app/rendez-vous-600.webp" srcset="/assets/img/app/rendez-vous-300.webp 300w, /assets/img/app/rendez-vous-600.webp 600w, /assets/img/app/rendez-vous-900.webp 900w" sizes="250px" width="600" height="1304" alt="" loading="lazy" decoding="async">
@@ -164,7 +172,6 @@ layout: landing
 
       <div class="how__stage" aria-hidden="true">
         <div class="how__sticky">
-          <div class="glow"></div>
           <div class="phone">
             <div class="phone__screen">
               <img class="phone__shot" data-screen="0" src="/assets/img/app/mon-profil-600.webp" srcset="/assets/img/app/mon-profil-300.webp 300w, /assets/img/app/mon-profil-600.webp 600w, /assets/img/app/mon-profil-900.webp 900w" sizes="260px" width="600" height="1304" alt="" loading="lazy" decoding="async">
@@ -187,94 +194,159 @@ layout: landing
   </div>
 </section>
 
-<section class="section section--tight features" aria-labelledby="titre-features">
+<section class="section chatter theme-noir" aria-labelledby="titre-chatter">
   <div class="container">
-    <div class="section__head">
-      <span class="eyebrow">Pensé pour toi</span>
-      <h2 class="display" id="titre-features">Les petits plus <span class="muted">qui changent tout.</span></h2>
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Les conversations</p>
+      <h2 class="display" id="titre-chatter">Ça commence souvent par une question.</h2>
+      <p class="lead">Sur ton profil, jusqu'à trois questions, comme « Mon dimanche idéal ». De quoi engager la conversation sans phrase toute faite.</p>
     </div>
-    <div class="cards cards--4">
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#heart"></use></svg></span>
-        <h3>Dis ce que tu cherches</h3>
-        <p>Une relation sérieuse, du fun, de nouvelles amitiés… Six réponses possibles, et Linga en tient compte des deux côtés.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#sparkles"></use></svg></span>
-        <span class="tag tag--corner">Bientôt</span>
-        <h3>Questions de compatibilité</h3>
-        <p>Des enfants un jour ? Ce qui compte pour toi ? Tes réponses aideront Linga à te présenter les bonnes personnes.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#pause"></use></svg></span>
-        <h3>Le mode pause</h3>
-        <p>Besoin de souffler ? 24&nbsp;heures, une semaine ou jusqu'à ton retour : tu disparais de Découvrir et tu gardes tes matchs.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#moon"></use></svg></span>
-        <h3>Des nuits calmes</h3>
-        <p>Si tu l'actives, aucune notification de 22&nbsp;h à 8&nbsp;h.</p>
-      </article>
+  </div>
+  <div class="chatter__rows" aria-hidden="true" data-marquee>
+    <div class="chatter__row">
+      <div class="chatter__track">
+        <p class="bubble bubble--out">Salut Awa ! Tu parles de marché le dimanche : c'est lequel, ton préféré ?</p>
+        <p class="bubble bubble--in">Celui près de chez moi, pour le pain et les fleurs.</p>
+        <p class="bubble bubble--in">Et toi, c'est quoi ton dimanche idéal ?</p>
+        <p class="bubble bubble--out bubble--voice"><svg class="icon"><use href="/assets/img/icons.svg#mic"></use></svg><span class="wave"></span>0:07</p>
+        <p class="bubble bubble--in">Avec plaisir ! Samedi, ça te va ?</p>
+        <p class="bubble bubble--out">Salut Awa ! Tu parles de marché le dimanche : c'est lequel, ton préféré ?</p>
+        <p class="bubble bubble--in">Celui près de chez moi, pour le pain et les fleurs.</p>
+        <p class="bubble bubble--in">Et toi, c'est quoi ton dimanche idéal ?</p>
+        <p class="bubble bubble--out bubble--voice"><svg class="icon"><use href="/assets/img/icons.svg#mic"></use></svg><span class="wave"></span>0:07</p>
+        <p class="bubble bubble--in">Avec plaisir ! Samedi, ça te va ?</p>
+      </div>
+    </div>
+    <div class="chatter__row chatter__row--reverse">
+      <div class="chatter__track">
+        <p class="prompt"><span class="prompt__q">Mon dimanche idéal</span>Marché le matin, expo l'après-midi, et un plat qui mijote pendant des heures.</p>
+        <p class="bubble bubble--out">Haha, je savais que tu dirais ça.</p>
+        <p class="datecard"><svg class="icon"><use href="/assets/img/icons.svg#calendar"></use></svg><span><span class="datecard__label">Proposition de rendez-vous</span>Une balade, dimanche après-midi</span></p>
+        <p class="prompt"><span class="prompt__q">Ce qui me fait rire</span>Les blind tests où je confonds tous les chanteurs.</p>
+        <p class="prompt"><span class="prompt__q">Mon dimanche idéal</span>Brocante le matin, puis un long déjeuner qui déborde sur l'après-midi.</p>
+        <p class="prompt"><span class="prompt__q">Mon dimanche idéal</span>Marché le matin, expo l'après-midi, et un plat qui mijote pendant des heures.</p>
+        <p class="bubble bubble--out">Haha, je savais que tu dirais ça.</p>
+        <p class="datecard"><svg class="icon"><use href="/assets/img/icons.svg#calendar"></use></svg><span><span class="datecard__label">Proposition de rendez-vous</span>Une balade, dimanche après-midi</span></p>
+        <p class="prompt"><span class="prompt__q">Ce qui me fait rire</span>Les blind tests où je confonds tous les chanteurs.</p>
+        <p class="prompt"><span class="prompt__q">Mon dimanche idéal</span>Brocante le matin, puis un long déjeuner qui déborde sur l'après-midi.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section security" id="securite" aria-labelledby="titre-securite">
-  <div class="security__glow" aria-hidden="true"></div>
+<section class="section rhythm theme-blanc" aria-labelledby="titre-rythme">
+  <div class="container rhythm__grid">
+    <div class="rhythm__text">
+      <div class="section__head" data-reveal>
+        <p class="eyebrow">À ton rythme</p>
+        <h2 class="display" id="titre-rythme">Linga suit ton rythme. Pas l'inverse.</h2>
+      </div>
+      <dl class="perks">
+        <div data-reveal>
+          <dt>Dis ce que tu cherches</dt>
+          <dd>Une relation sérieuse, du fun, de nouvelles amitiés… Six réponses possibles, et Linga en tient compte des deux côtés.</dd>
+        </div>
+        <div data-reveal>
+          <dt>Le mode pause</dt>
+          <dd>Besoin de souffler ? 24&nbsp;heures, une semaine ou jusqu'à ton retour : tu disparais de Découvrir et tu gardes tes matchs.</dd>
+        </div>
+        <div data-reveal>
+          <dt>Des nuits calmes</dt>
+          <dd>Si tu l'actives, aucune notification de 22&nbsp;h à 8&nbsp;h.</dd>
+        </div>
+        <div data-reveal>
+          <dt>Questions de compatibilité <span class="tag">Bientôt</span></dt>
+          <dd>Des enfants un jour ? Ce qui compte pour toi ? Tes réponses aideront Linga à te présenter les bonnes personnes.</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="fan" aria-hidden="true" data-fan>
+      <div class="fan__item">
+        <div class="phone">
+          <div class="phone__screen">
+            <img class="phone__shot" src="/assets/img/app/filtres-600.webp" srcset="/assets/img/app/filtres-300.webp 300w, /assets/img/app/filtres-600.webp 600w, /assets/img/app/filtres-900.webp 900w" sizes="220px" width="600" height="1304" alt="" loading="lazy" decoding="async">
+            <span class="phone__island"></span>
+            <span class="phone__home"></span>
+          </div>
+        </div>
+      </div>
+      <div class="fan__item">
+        <div class="phone">
+          <div class="phone__screen">
+            <img class="phone__shot" src="/assets/img/app/pause-600.webp" srcset="/assets/img/app/pause-300.webp 300w, /assets/img/app/pause-600.webp 600w, /assets/img/app/pause-900.webp 900w" sizes="220px" width="600" height="1304" alt="" loading="lazy" decoding="async">
+            <span class="phone__island"></span>
+            <span class="phone__home"></span>
+          </div>
+        </div>
+      </div>
+      <div class="fan__item">
+        <div class="phone">
+          <div class="phone__screen">
+            <img class="phone__shot" src="/assets/img/app/notifications-600.webp" srcset="/assets/img/app/notifications-300.webp 300w, /assets/img/app/notifications-600.webp 600w, /assets/img/app/notifications-900.webp 900w" sizes="220px" width="600" height="1304" alt="" loading="lazy" decoding="async">
+            <span class="phone__island"></span>
+            <span class="phone__home"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section security theme-noir" id="securite" aria-labelledby="titre-securite">
   <div class="container">
-    <div class="section__head section__head--row">
+    <div class="section__head section__head--row" data-reveal>
       <div>
-        <span class="eyebrow">Sécurité</span>
-        <h2 class="display" id="titre-securite">Ta sécurité <span class="muted">d'abord.</span></h2>
+        <p class="eyebrow">Sécurité</p>
+        <h2 class="display" id="titre-securite">Ta sécurité d'abord.</h2>
         <p class="lead">Rencontrer quelqu'un doit rester un plaisir. Tout est pensé pour que tu gardes la main, du premier like au premier rendez-vous.</p>
       </div>
       <a class="button button--ghost" href="/securite/">Nos conseils de sécurité</a>
     </div>
-    <div class="cards cards--3 cards--glow">
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#shield-check"></use></svg></span>
+    <ul class="promises">
+      <li data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#shield-check"></use></svg>
         <h3>Des profils vérifiés</h3>
         <p>Un selfie, comparé à tes photos : si c'est bien toi, le badge apparaît sur ton profil. Le selfie est effacé dès la décision.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#map-pin"></use></svg></span>
+      </li>
+      <li data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#map-pin"></use></svg>
         <h3>Ta position reste à toi</h3>
         <p>Les autres voient une distance arrondie au kilomètre, jamais ta position. Tu peux même masquer cette distance.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#image"></use></svg></span>
+      </li>
+      <li data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#image"></use></svg>
         <h3>Des photos sans traces</h3>
         <p>Position GPS, modèle du téléphone, date de prise de vue : tout est retiré de tes photos avant leur mise en ligne.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#flag"></use></svg></span>
+      </li>
+      <li data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#flag"></use></svg>
         <h3>Bloquer et signaler</h3>
         <p>La personne ne te voit plus et ne peut plus t'écrire. Ton signalement arrive à l'équipe avec de quoi agir, même après la fin de la conversation.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#bell"></use></svg></span>
+      </li>
+      <li data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#bell"></use></svg>
         <h3>Des notifications discrètes</h3>
         <p>Jamais le contenu d'un message sur ton écran verrouillé. Et « Quelqu'un t'a liké » ne dit rien de la personne.</p>
-      </article>
-      <article class="card">
-        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#lock"></use></svg></span>
+      </li>
+      <li data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#lock"></use></svg>
         <h3>Tes données, ta décision</h3>
         <p>Depuis l'app, tu demandes une copie de tes données, envoyée par e-mail, ou tu supprimes ton compte, quand tu veux.</p>
-      </article>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>
 
-<section class="section" id="linga-plus" aria-labelledby="titre-plus">
+<section class="section theme-papier" id="linga-plus" aria-labelledby="titre-plus">
   <div class="container">
-    <div class="section__head section__head--center">
-      <span class="eyebrow">Linga et Linga+</span>
-      <h2 class="display" id="titre-plus">Tout pour rencontrer. <span class="muted">Et bientôt un peu plus.</span></h2>
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Linga et Linga+</p>
+      <h2 class="display" id="titre-plus">Tout pour rencontrer. Et bientôt un peu plus.</h2>
       <p class="lead">Linga a tout ce qu'il faut pour faire connaissance. Linga+ ajoutera deux options, pour celles et ceux qui veulent aller plus vite.</p>
     </div>
     <div class="plans">
-      <article class="plan">
-        <span class="plan__mark"><img src="/assets/img/logo/linga-monogramme-negatif.svg" alt="" width="26" height="49"></span>
+      <article class="plan" data-reveal>
+        <span class="plan__mark"><img src="/assets/img/logo/linga-monogramme.svg" alt="" width="26" height="49"></span>
         <p class="plan__kicker">Pour rencontrer</p>
         <h3 class="plan__name">Linga</h3>
         <p class="plan__text">Ton profil, Découvrir, les matchs et la messagerie.</p>
@@ -284,8 +356,8 @@ layout: landing
           <li>Des messages, des vocaux et des propositions de rendez-vous</li>
         </ul>
       </article>
-      <article class="plan plan--plus">
-        <span class="plan__mark"><img src="/assets/img/logo/linga-monogramme.svg" alt="" width="26" height="49"></span>
+      <article class="plan plan--plus theme-noir" data-reveal>
+        <span class="plan__mark"><img src="/assets/img/logo/linga-monogramme-negatif.svg" alt="" width="26" height="49"></span>
         <p class="plan__kicker">Pour aller plus vite</p>
         <h3 class="plan__name">Linga+ <span class="tag">Bientôt</span></h3>
         <p class="plan__text">Un abonnement facultatif, en plus de Linga.</p>
@@ -299,11 +371,11 @@ layout: landing
   </div>
 </section>
 
-<section class="section faq-section" id="faq" aria-labelledby="titre-faq">
+<section class="section theme-blanc" id="faq" aria-labelledby="titre-faq">
   <div class="container split">
-    <div>
-      <span class="eyebrow">Questions fréquentes</span>
-      <h2 class="display" id="titre-faq">Tes questions, <span class="muted">nos réponses.</span></h2>
+    <div data-reveal>
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2 class="display" id="titre-faq">Tes questions, nos réponses.</h2>
       <p class="lead">Une autre question ? Le <a href="/aide/">centre d'aide</a> a les réponses, et on te répond aussi à <a href="mailto:aide@linga.chat">aide@linga.chat</a>.</p>
     </div>
     <div class="faq">
@@ -351,29 +423,27 @@ layout: landing
   </div>
 </section>
 
-<section class="section section--tight" id="telecharger" aria-labelledby="titre-telecharger">
-  <div class="container">
-    <div class="cta-panel">
-      <div class="cta-panel__body">
-        <p class="cta-panel__kicker">Des rencontres qui se tiennent</p>
-        <h2 class="display" id="titre-telecharger">Linga arrive <span class="muted">bientôt.</span></h2>
-        <p class="lead">Sur iPhone et Android. En attendant, une question ou une idée ? Écris-nous, on lit tout.</p>
-        <div class="stores">
-          <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>l'App Store</span></span>
-          <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>Google Play</span></span>
-        </div>
-        <a class="contact-card" href="mailto:aide@linga.chat">
-          <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#mail"></use></svg></span>
-          <span><span class="contact-card__label">Une question ? On te répond par e-mail</span><span class="contact-card__value">aide<wbr>@linga.chat</span></span>
-        </a>
+<section class="section cta theme-coquelicot" id="telecharger" aria-labelledby="titre-telecharger">
+  <div class="container cta__grid">
+    <div class="cta__body" data-reveal>
+      <p class="eyebrow">Des rencontres qui se tiennent</p>
+      <h2 class="cta__title" id="titre-telecharger">Linga arrive bientôt.</h2>
+      <p class="lead">Sur iPhone et Android. En attendant, une question ou une idée ? Écris-nous, on lit tout.</p>
+      <div class="stores">
+        <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>l'App Store</span></span>
+        <span class="store"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#smartphone"></use></svg><span class="store__text"><small>Bientôt sur</small>Google Play</span></span>
       </div>
-      <div class="cta-panel__phone" aria-hidden="true">
-        <div class="phone phone--sombre">
-          <div class="phone__screen">
-            <img class="phone__shot" src="/assets/img/app/match-600.webp" srcset="/assets/img/app/match-300.webp 300w, /assets/img/app/match-600.webp 600w, /assets/img/app/match-900.webp 900w" sizes="260px" width="600" height="1304" alt="" loading="lazy" decoding="async">
-            <span class="phone__island"></span>
-            <span class="phone__home"></span>
-          </div>
+      <a class="contact-card" href="mailto:aide@linga.chat">
+        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#mail"></use></svg></span>
+        <span><span class="contact-card__label">Une question ? On te répond par e-mail</span><span class="contact-card__value">aide<wbr>@linga.chat</span></span>
+      </a>
+    </div>
+    <div class="cta__phone" aria-hidden="true">
+      <div class="phone phone--sombre" data-float>
+        <div class="phone__screen">
+          <img class="phone__shot" src="/assets/img/app/match-600.webp" srcset="/assets/img/app/match-300.webp 300w, /assets/img/app/match-600.webp 600w, /assets/img/app/match-900.webp 900w" sizes="260px" width="600" height="1304" alt="" loading="lazy" decoding="async">
+          <span class="phone__island"></span>
+          <span class="phone__home"></span>
         </div>
       </div>
     </div>

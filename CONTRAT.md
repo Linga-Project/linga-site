@@ -127,29 +127,48 @@ Liens externes : `https://…` ; e-mail : `mailto:aide@linga.chat`.
   `alt` dit ce que montre l'écran (ce qu'en retiendrait quelqu'un qui ne le voit pas), la légende dit à quoi il sert
   ici : ne pas répéter l'un dans l'autre. Pas de lien vers l'image seule : le zoom du navigateur suffit.
 
+## Le style : pas de recette
+
+Le site ne ressemble pas à un gabarit : pas de lueur, pas de grille de points, pas de titre en dégradé, pas de
+pastille à point rouge au-dessus de chaque titre. Il repose sur trois choses propres à Linga :
+
+- **Le fil** : le monogramme du logo (le l et le i reliés par le bas) tracé d'un seul trait, et son **point**
+  coquelicot. Il se dessine en haut des pages (`build.py` le pose), il tient le téléphone de l'accueil, il passe sous
+  « se tiennent », il relie les étapes de « Comment ça marche ». Le point sert de puce, d'étiquette et d'indicateur.
+- **Des aplats de couleur** : chaque section prend un thème, `theme-noir`, `theme-papier` (#F5F5F5, le fond de
+  l'app), `theme-blanc` ou `theme-coquelicot`, et ses composants suivent (variables CSS). Sur coquelicot, tout est
+  noir. Deux sections voisines ne prennent pas le même thème.
+- **Le contraste de graisse** : titres en 800, une partie en 300 (`<span class="muted">…</span>` dans un `display`),
+  jamais une moitié grisée.
+
 ## Sections (layouts page et landing)
 
-- Section : `<section class="section" id="…"><div class="container">…</div></section>` ; plus serrée :
-  `section section--tight`.
-- En-tête de section : `<span class="eyebrow">Les bons réflexes</span>`, puis
-  `<h2 class="display">Première ligne <span class="muted">deuxième ligne.</span></h2>`, puis `<p class="lead">…</p>`.
-  Centré : ajouter `section__head--center` sur un `<div class="section__head">` qui les entoure.
+- Section : `<section class="section theme-papier" id="…"><div class="container">…</div></section>` (ou
+  `theme-noir`, `theme-blanc`, `theme-coquelicot`) ; plus serrée : `section section--tight`. Le haut des pages des
+  layouts `page`, `legal` et `help` est noir (posé par `build.py`) : la première section n'est pas noire.
+- En-tête de section : `<span class="eyebrow">Les bons réflexes</span>` (le point, puis le texte), puis
+  `<h2 class="display">Première ligne <span class="muted">deuxième ligne, en maigre.</span></h2>`, puis
+  `<p class="lead">…</p>`. Centré : `section__head--center` sur le `<div class="section__head">` qui les entoure ;
+  titre à gauche et bouton à droite : `section__head--row`.
 - Deux colonnes (texte à gauche, contenu à droite) : `<div class="split"><div>…</div><div>…</div></div>`.
 - Cartes : `<div class="cards cards--3">` (ou `cards--2`, `cards--4`) contenant des
-  `<article class="card"><span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#shield-check"></use></svg></span><h3>Titre</h3><p>Texte.</p></article>`.
-  Carte-lien : `<a class="card card--link" href="/aide/connexion/">…<span class="card__more">Lire l'article</span></a>`.
-- Règles numérotées : `<ol class="rules"><li><p>…</p></li></ol>` (cartes au numéro coquelicot).
+  `<article class="card"><span class="card__icon"><svg class="icon" aria-hidden="true"><use href="/assets/img/icons.svg#shield-check"></use></svg></span><h3>Titre</h3><p>Texte.</p></article>`
+  (l'icône se pose sur le point coquelicot). Carte-lien :
+  `<a class="card card--link" href="/aide/connexion/">…<span class="card__more">Lire l'article</span></a>`.
+- Règles numérotées : `<ol class="rules"><li><p>…</p></li></ol>` (liste à filets, gros numéros 01, 02…).
 - Questions fréquentes : `<div class="faq"><details><summary>La question ?</summary><div class="faq__answer"><p>La réponse.</p></div></details></div>`.
 - Liste à coches : `<ul class="checklist"><li>…</li></ul>`.
-- Boutons : `<a class="button button--light" href="…">Libellé</a>` (blanc), `<a class="button button--ghost" href="…">`
-  (contour), `<a class="button button--accent" href="…">` (coquelicot, texte noir).
-- Pastille « Bientôt » (fonction pas encore disponible) : `<span class="tag">Bientôt</span>`, coquelicot, texte
-  noir ; dans le coin d'une carte : `<span class="tag tag--corner">Bientôt</span>`. Un seul style sur tout le site.
-- Badges des boutiques : `<span class="store">…</span>` dans `<div class="stores">`, volontairement d'aspect inactif
-  (contour pointillé) tant que l'app n'est pas sortie ; ils deviendront des liens blancs avec les adresses des boutiques.
+- Encadré : `<div class="callout">` ou `callout callout--accent` ; sur coquelicot, il devient noir.
+- Boutons : `<a class="button button--light" href="…">Libellé</a>` (plein : blanc sur noir, noir sur papier et sur
+  coquelicot), `<a class="button button--ghost" href="…">` (contour), `<a class="button button--accent" href="…">`
+  (coquelicot, texte noir).
+- Pastille « Bientôt » (fonction pas encore disponible) : `<span class="tag">Bientôt</span>`. Un seul style sur tout
+  le site (noire sur coquelicot).
+- Badges des boutiques : `<span class="store">…</span>` dans `<div class="stores">`, sans lien tant que l'app n'est
+  pas sortie ; ils deviendront des liens avec les adresses des boutiques.
 - Encadré de contact : `<div class="contact-card"><span class="card__icon">…</span><div><p class="contact-card__label">…</p><p class="contact-card__value">…</p></div></div>`.
-- Téléphone (accueil) : un cadre autour d'une capture de l'app, dans un conteneur `aria-hidden="true"` quand le
-  texte voisin dit déjà ce que montre l'écran (alors `alt=""`) :
+- Téléphone : un cadre autour d'une capture de l'app, dans un conteneur `aria-hidden="true"` quand le texte voisin
+  dit déjà ce que montre l'écran (alors `alt=""`) :
   ```html
   <div class="phone">
     <div class="phone__screen">
@@ -159,11 +178,37 @@ Liens externes : `https://…` ; e-mail : `mailto:aide@linga.chat`.
     </div>
   </div>
   ```
-  `--w` règle la largeur du cadre, 290 px par défaut (`sizes` : `--w` moins 20 px, donc 270px ici ; 290px pour le
-  téléphone du haut de l'accueil, où `--w` vaut 310 px) ; écran sombre : `phone phone--sombre` (barre
-  d'accueil claire). Le téléphone de « Comment ça marche » change d'image au défilement : une `phone__shot` par étape,
-  avec `data-screen="0"`, `"1"`… La première image visible sans défiler prend `fetchpriority="high"` au lieu de
-  `loading="lazy"`.
+  `--w` règle la largeur du cadre, 290 px par défaut (`sizes` : `--w` moins 20 px, donc 270px ici) ; écran sombre :
+  `phone phone--sombre` (barre d'accueil claire). Le téléphone de « Comment ça marche » change d'image au
+  défilement : une `phone__shot` par étape, avec `data-screen="0"`, `"1"`… La première image visible sans défiler
+  prend `fetchpriority="high"` au lieu de `loading="lazy"`.
+
+### Composants de l'accueil
+
+- Haut de page (`hero`) : titre `data-words` (les mots montent), « se tiennent » dans `hero__link` (le fil passe
+  dessous), définition de *kolinga* (`<dl class="definition">`), téléphone tenu par le fil (`svg.fil--tenir`), qui
+  suit la souris (`data-tilt`) et reçoit les vraies notifications de l'app (`<div class="push" data-push>`, textes du
+  backend : jamais le contenu d'un message).
+- Engagements (`manifesto`, coquelicot) : une phrase, puis `<ul class="facts">` ; les chiffres défilent jusqu'à leur
+  valeur (`data-count`, `data-from` pour partir d'ailleurs que 0). La valeur écrite dans la page est la vraie.
+- Conversations (`chatter`) : deux rangées de vraies phrases de la démonstration (`bubble--in`, `bubble--out`,
+  `prompt`, `datecard`), répétées deux fois pour défiler sans fin (`data-marquee`), décoratives (`aria-hidden`).
+- À ton rythme (`rhythm`) : `<dl class="perks">` et trois vrais écrans en éventail (`data-fan`).
+- Sécurité : `<ul class="promises">` (icône, titre, texte, à filets).
+- Linga et Linga+ : `<div class="plans">`, la carte Linga+ en `theme-noir`.
+- Appel final (`cta`, coquelicot) : grand titre, boutiques, encadré de contact, téléphone qui flotte (`data-float`).
+
+### Le mouvement
+
+`linga.js` anime, la CSS décrit. Règles :
+
+- Tout est lisible sans JavaScript et avec « réduire les animations » : les états de départ (masqué, décalé, non
+  tracé) ne s'appliquent qu'avec la classe `js` et `prefers-reduced-motion: no-preference`.
+- Un bloc qui entre quand on y arrive : `data-reveal` (dans une même liste, l'un après l'autre). Avec parcimonie :
+  les titres de section et les listes, pas chaque paragraphe.
+- Les animations en boucle (notifications, conversations) s'arrêtent hors de l'écran.
+- Seuls `transform`, `opacity`, `clip-path` et le tracé des SVG s'animent ; rien ne change la mise en page.
+- D'une page à l'autre, un fondu (`@view-transition`), là où le navigateur le sait.
 
 ## Icônes
 
