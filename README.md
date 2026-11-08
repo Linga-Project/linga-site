@@ -10,7 +10,7 @@ dépendance, ni cookie, ni traceur. La police Bricolage Grotesque est servie par
 
 ```sh
 python3 build.py
-python3 -m http.server 8090 --directory _site
+python3 -m http.server 8090 --bind 127.0.0.1 --directory _site
 ```
 
 Puis http://localhost:8090. `build.py` est strict : il échoue si un lien interne mène nulle part, si une ancre manque,
@@ -18,7 +18,24 @@ si une icône n'existe pas, si l'en-tête d'une page est incomplet ou si un aver
 essai seulement). La CI fait la même vérification. Il écrit aussi `sitemap.xml` (sans les brouillons) et `robots.txt`.
 
 Options utiles : `--site-url` (adresse publique, `https://linga.chat` par défaut, pour les liens canoniques, Open Graph et
-le sitemap) et `--root-path` (chemin de base, pour la page 404). La CI les prend dans la configuration de GitHub Pages.
+le sitemap) et `--root-path` (chemin de base, pour la page 404). Les valeurs par défaut sont celles de
+https://linga.chat, servi par Cloudflare.
+
+## Captures d'écran de l'app
+
+Les téléphones de l'accueil et les images des articles d'aide sont de vraies captures de l'app, prises dans le
+simulateur iOS par `captures.py` : le test d'intégration `integration_test/captures_site_test.dart` de l'app
+(dépôt voisin, `../app`) l'ouvre en démonstration et va d'écran en écran. Pour les refaire, après un changement
+d'écran dans l'app (macOS, Xcode, Flutter et `cwebp` : `brew install webp`) :
+
+```sh
+xcrun simctl list devices | grep Booted           # l'UDID du simulateur, démarré (un iPhone Pro Max)
+python3 captures.py --simulateur <UDID>
+```
+
+Le script fige la barre d'état (« 09:41 » sur un simulateur en français), fait les captures, puis écrit trois tailles de chaque écran utilisé dans
+`assets/img/app/` (WebP). À la fin, `flutter test` désinstalle l'app du simulateur : relancer `flutter run` pour la
+retrouver. Le détail est dans [CONTRAT.md](CONTRAT.md#captures-décran-de-lapp).
 
 ## Écrire ou modifier une page
 
@@ -28,36 +45,26 @@ listes, des tableaux et quelques encadrés ; `build.py` ajoute le haut de page, 
 
 ## Publication
 
-À chaque push sur `main`, GitHub Actions construit le site et le publie sur GitHub Pages
-(`.github/workflows/pages.yml`). Les pull requests sont seulement construites, pour vérifier les liens. Tant que Pages
-n'est pas activé pour le dépôt, le site est construit et vérifié, sans être publié (avertissement dans le résumé).
+Le site est publié par **Cloudflare** (Workers & Pages), relié à ce dépôt : à chaque push sur `main`, Cloudflare
+lance `npx wrangler deploy`, qui lit [wrangler.jsonc](wrangler.jsonc) : il construit le site (`python3 build.py`),
+puis envoie le dossier `_site` comme fichiers statiques (sans script). Une adresse inconnue reçoit la page 404 ;
+`/cgu` mène à `/cgu/`.
 
-Sur le plan gratuit de GitHub, Pages ne publie que les dépôts publics. Pour l'activer, une fois :
+Réglages du projet dans Cloudflare (Workers & Pages › le Worker › Settings › Build) :
 
-```sh
-gh repo edit Linga-Project/linga-site --visibility public --accept-visibility-change-consequences
-gh api -X POST repos/Linga-Project/linga-site/pages -f build_type=workflow
-gh workflow run pages.yml --repo Linga-Project/linga-site
-```
+| Réglage | Valeur |
+|---|---|
+| Nom du Worker | `linga-site`, le même que `name` dans `wrangler.jsonc` |
+| Commande de construction | aucune (ou `python3 build.py`, sans effet de plus) |
+| Commande de déploiement | `npx wrangler deploy` |
+| Branche | `main` |
 
-Le site est alors en ligne sur https://linga-project.github.io/linga-site/. Pour garder le dépôt privé, Cloudflare Pages
-peut publier le même site : projet relié à ce dépôt, commande de construction `python3 build.py`, dossier de sortie
-`_site`, domaine `linga.chat`.
+Le domaine `linga.chat` se branche dans le même Worker : Settings › Domains & Routes › Add › Custom domain, puis
+`linga.chat` et `www.linga.chat`. Le domaine étant chez Cloudflare, les enregistrements DNS et le certificat sont
+créés tout seuls. L'API reste à part, sur `api.linga.chat`.
 
-### Le domaine linga.chat
-
-Chez Cloudflare (DNS du domaine), en « DNS only » (nuage gris) pour que GitHub obtienne lui-même le certificat :
-
-| Type | Nom | Contenu |
-|---|---|---|
-| A | `linga.chat` | `185.199.108.153` |
-| A | `linga.chat` | `185.199.109.153` |
-| A | `linga.chat` | `185.199.110.153` |
-| A | `linga.chat` | `185.199.111.153` |
-| CNAME | `www` | `linga-project.github.io` |
-
-Puis, dans les réglages du dépôt (Settings › Pages), donner `linga.chat` comme domaine personnalisé et cocher
-« Enforce HTTPS » quand le certificat est prêt.
+GitHub Actions (`.github/workflows/site.yml`) construit le site à chaque push et pull request, pour vérifier les
+liens, les images et les en-têtes ; il ne publie rien.
 
 ## Les pages légales
 

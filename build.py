@@ -7,10 +7,10 @@ Usage :
                                             plus la construction (essais seulement, jamais pour publier)
     python3 build.py --allow-missing-links  liens vers des pages ou ancres absentes : simple avertissement
     python3 build.py --include-underscore   construit aussi les fichiers dont le nom commence par _ (essais)
-    python3 build.py --root-path /linga-site/
-        préfixe des liens de 404.html, la seule page servie à n'importe quelle adresse (GitHub Pages) : « / »
-        pour https://linga.chat, « /linga-site/ » tant que le site est servi par linga-project.github.io/linga-site/
-    python3 build.py --site-url https://linga-project.github.io/linga-site
+    python3 build.py --root-path /linga/
+        préfixe des liens de 404.html, la seule page servie à n'importe quelle adresse : « / » (défaut) pour
+        https://linga.chat, « /linga/ » pour un site servi dans un sous-dossier
+    python3 build.py --site-url https://exemple.org/linga
         adresse publique du site, sans barre finale (défaut : https://linga.chat, ou LINGA_SITE_URL) : adresses
         canoniques, og:url, og:image, sitemap.xml et robots.txt
 
@@ -511,15 +511,44 @@ def french_spacing(document: str) -> str:
 
 TAG_ONLY_RE = re.compile(r"<[a-zA-Z]" + TAG_BODY + r">")
 LINK_ATTR_RE = re.compile(r'(\s(?:href|src)=")([^"]*)(")')
+# srcset="/a-300.webp 300w, /a-600.webp 600w" : une liste d'adresses, chacune suivie de sa largeur
+SRCSET_ATTR_RE = re.compile(r'(\ssrcset=")([^"]*)(")')
 ANY_ID_RE = re.compile(r"<[a-zA-Z]" + TAG_BODY.replace(")*", ")*?") + r'\sid="([^"]+)"')
 # Ressource chargée par le navigateur depuis un autre site : bloquée par la CSP, donc refusée au build.
 EXTERNAL_ATTR_RE = re.compile(r"""\s(src|href|srcset|poster|data|action|xlink:href)\s*=\s*["']?\s*(?:[a-z][a-z0-9+.-]*:)?//""", re.I)
+IMG_TAG_RE = re.compile(r"<img\b" + TAG_BODY + r">", re.I)
+
+
+def srcset_urls(value: str):
+    return [candidate.split()[0] for candidate in value.split(",") if candidate.strip()]
 
 
 def links_of(document: str):
     for tag in TAG_ONLY_RE.findall(document):
         for m in LINK_ATTR_RE.finditer(tag):
             yield m.group(2)
+        for m in SRCSET_ATTR_RE.finditer(tag):
+            yield from srcset_urls(m.group(2))
+
+
+def check_images(page: Page, document: str):
+    """Chaque <img> : un alt (vide si l'image ne fait que décorer), width et height (place réservée avant le
+    chargement, rien ne saute), et sizes avec srcset."""
+    problems = []
+    for tag in IMG_TAG_RE.findall(document):
+        src = re.search(r'\ssrc="([^"]*)"', tag)
+        name = src.group(1) if src else tag[:60]
+        missing = [a for a in ("alt", "width", "height") if not re.search(rf'\s{a}="[^"]*"', tag)]
+        if re.search(r"\ssrcset=", tag) and not re.search(r"\ssizes=", tag):
+            missing.append("sizes")
+        if missing:
+            problems.append(f"{name} (sans {', '.join(missing)})")
+        for attr in ("width", "height"):
+            value = re.search(rf'\s{attr}="([^"]*)"', tag)
+            if value and not value.group(1).isdigit():
+                problems.append(f"{name} ({attr}=\"{value.group(1)}\" : un nombre de pixels)")
+    if problems:
+        raise BuildError(f"{page.rel} : <img> incomplète : {'; '.join(problems)}")
 
 
 def check_csp(page: Page, document: str):
@@ -537,6 +566,10 @@ def check_csp(page: Page, document: str):
         external = EXTERNAL_ATTR_RE.search(tag)
         if external and name != "a" and not (name == "link" and re.search(r'\srel="canonical"', tag)):
             problems.append(f"ressource externe (<{name} {external.group(1)}=…>)")
+        # srcset : chaque adresse de la liste, pas seulement la première
+        for m in SRCSET_ATTR_RE.finditer(tag):
+            if any(re.match(r"(?:[a-z][a-z0-9+.-]*:)?//", url, re.I) for url in srcset_urls(m.group(2))):
+                problems.append(f"ressource externe (<{name} srcset=…>)")
     if problems:
         raise BuildError(
             f"{page.rel} : interdit par la CSP (aucun style ni script en ligne, aucune ressource d'un autre site) : "
@@ -565,6 +598,8 @@ def check_links(pages, icons: set, allow_missing: bool) -> int:
                 file = ASSETS / path[len("/assets/"):]
                 if not file.is_file():
                     errors.append((False, f"{page.rel} : fichier introuvable « {path} »"))
+                elif file.stat().st_size == 0:
+                    errors.append((False, f"{page.rel} : fichier vide « {path} »"))
                 elif path == "/assets/img/icons.svg":
                     if not frag:
                         errors.append((False, f"{page.rel} : icône sans nom (« {link} »)"))
@@ -617,8 +652,21 @@ def relativize(document: str, page: Page, root_path: str) -> str:
             rel = "./" + rel
         return m.group(1) + rel + m.group(3)
 
+    def fix_url(value: str) -> str:
+        if not value.startswith("/") or value.startswith("//"):
+            return value
+        return prefix + value[1:]
+
+    def fix_srcset(m):
+        candidates = []
+        for candidate in m.group(2).split(","):
+            parts = candidate.split()
+            if parts:
+                candidates.append(" ".join([fix_url(parts[0])] + parts[1:]))
+        return m.group(1) + ", ".join(candidates) + m.group(3)
+
     def fix_tag(m):
-        return LINK_ATTR_RE.sub(fix_attr, m.group(0))
+        return SRCSET_ATTR_RE.sub(fix_srcset, LINK_ATTR_RE.sub(fix_attr, m.group(0)))
 
     return TAG_ONLY_RE.sub(fix_tag, document)
 
@@ -677,6 +725,7 @@ def build(args) -> int:
         document = NOTE_COMMENT_RE.sub("", document)
         document = french_spacing(segment_paths(document))
         check_csp(page, document)
+        check_images(page, document)
         ids = ANY_ID_RE.findall(document)
         dupes = sorted({i for i in ids if ids.count(i) > 1})
         if dupes:
